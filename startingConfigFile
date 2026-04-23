@@ -33,21 +33,20 @@ if boolean_already_JSON.upper() == "NO":
 
     # Dump the data onto the JSON file
     myJSON = json.dumps(data)
-
-
     with open("startingFile.json", "x") as jsonfile:
         jsonfile.write(myJSON)
         print("Write successful!\n")
         print("Your JSON file is called 'startingFile.json'.\n")
 
-
+# If the user has a JSON file, then ask for its name
 if boolean_already_JSON.upper() == "YES":
     # Ask for the name of the JSON file
     file_name = input("What is the name of your JSON file?\n")
+# If the user doesn't already have one, make the file_name variable the created JSON file
 elif boolean_already_JSON.upper() == "NO":
     file_name = "startingFile.json"
 
-
+# Ask for optional visualisation
 boolean_visualisation = input("Do you want to visualise the given graphs?\n")
 if boolean_visualisation.upper() == "YES":
     # Open that file 
@@ -71,7 +70,7 @@ if boolean_visualisation.upper() == "YES":
 
 
 
-
+# Open the given file and parse the arguments to the software
 with open(file_name, "r") as f:
     data = json.load(f)
     n = data["n"]
@@ -84,7 +83,3 @@ with open(file_name, "r") as f:
 
     # Call the solver function
     os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player}")
-
-
-
-
