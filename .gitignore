@@ -211,3 +211,6 @@ nauty2_8_6/
 
 # Erdos Game Solver
 edge-colouring-games-main/
+
+# MacOS
+.DS_Store
