@@ -211,6 +211,11 @@ nauty2_8_6/
 
 # Erdos Game Solver
 edge-colouring-games-main/
+3-vertices/
+4-vertices/
+5-vertices/
+6-vertices/
+7-vertices/
 
 # MacOS
 .DS_Store
