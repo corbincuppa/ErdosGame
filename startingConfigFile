@@ -14,7 +14,7 @@ elif start_player.upper() == "RED":
     starting_player_In = 1
 boolean_visualisation = input("Do you want to visualise the given graphs?\n")
 if boolean_visualisation.upper() == "YES":
-    os.system(f"python testGraph6")
+    os.system(f"python graphVisualisation")
 
 
 data = { "n" : n_In, 
