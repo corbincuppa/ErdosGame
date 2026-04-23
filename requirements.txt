@@ -1,0 +1,4 @@
+pynauty == 2.8.6
+networkx == 3.6.1
+matplotlib == 3.10.8
+pytest == 6.2.5
