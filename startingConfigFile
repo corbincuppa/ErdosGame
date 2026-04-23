@@ -1,35 +1,90 @@
-import json
 import os
+import json
+import networkx as nx
+import matplotlib.pyplot as plt
 
-n_In = int(input("What is the order of the starting graph?\n"))
-starting_graph = input("What is the starting graph in graph6 format?\n")
-red_graph_In = input("What is the graph6 format of the graph with which red starts?\n")
-blue_graph_In = input("What is the graph6 format of the graph with which blue starts?\n")
-thread_number_In = int(input("How many threads are allowed?\n"))
-start_player = input("Which colour starts?\n")
-starting_player_In = 0
-if start_player.upper() == "BLUE":
-    starting_player_In = 2
-elif start_player.upper() == "RED":
-    starting_player_In = 1
+# Ask if user wants to make a JSON file or not
+boolean_already_JSON = input("Do you already have a JSON file ready?\n")
+if boolean_already_JSON.upper() == "NO":
+    print("Then a JSON file will be made with the next given arguments:")
+    # Ask for the given arguments to be put in the JSON config file
+    n_In = int(input("What is the order of the starting graph?\n"))
+    starting_graph = input("What is the starting graph in graph6 format?\n")
+    red_graph_In = input("What is the graph6 format of the graph with which red starts?\n")
+    blue_graph_In = input("What is the graph6 format of the graph with which blue starts?\n")
+    thread_number_In = int(input("How many threads are allowed?\n"))
+    start_player = input("Which colour starts?\n")
+
+    # Change the variable value based on the colour chosen
+    starting_player_In = 0
+    if start_player.upper() == "BLUE":
+        starting_player_In = 2
+    elif start_player.upper() == "RED":
+        starting_player_In = 1
+
+    # Make the JSON format
+    data = { "n" : n_In, 
+            "starting-graph" : starting_graph,
+            "red-graph" : red_graph_In, 
+            "blue-graph" : blue_graph_In, 
+            "threadnumber" : thread_number_In, 
+            "starting-player" : starting_player_In
+    }
+
+    # Dump the data onto the JSON file
+    myJSON = json.dumps(data)
+
+
+    with open("startingFile.json", "x") as jsonfile:
+        jsonfile.write(myJSON)
+        print("Write successful!\n")
+        print("Your JSON file is called 'startingFile.json'.\n")
+
+
+if boolean_already_JSON.upper() == "YES":
+    # Ask for the name of the JSON file
+    file_name = input("What is the name of your JSON file?\n")
+elif boolean_already_JSON.upper() == "NO":
+    file_name = "startingFile.json"
+
+
 boolean_visualisation = input("Do you want to visualise the given graphs?\n")
 if boolean_visualisation.upper() == "YES":
-    os.system(f"python graphVisualisation")
+    # Open that file 
+    with open(file_name, "r") as f:
+        data = json.load(f)
+        n = data["n"]
+       
+
+        # Make a new file which contains the given graphs in graph6 format
+        with open("fileWithGraphString", "x") as g:
+            g.write(data["starting-graph"]+"\n")
+            g.write(data["red-graph"]+"\n")
+            g.write(data["blue-graph"])
+
+    graph = nx.read_graph6(g.name)
+
+    # Visualise each graph
+    for i in range(3):
+        nx.draw(graph[i])
+        plt.show()
 
 
-data = { "n" : n_In, 
-        "starting-graph" : starting_graph,
-        "red-graph" : red_graph_In, 
-        "blue-graph" : blue_graph_In, 
-        "threadnumber" : thread_number_In, 
-        "starting-player" : starting_player_In
-}
 
-myJSON = json.dumps(data)
 
-with open("startingConfig.json", "w") as jsonfile:
-    jsonfile.write(myJSON)
-    print("Write successful")
+with open(file_name, "r") as f:
+    data = json.load(f)
+    n = data["n"]
+    # Put the values in the JSON file into arguments
+    starting_graph = data["starting-graph"]
+    red_graph = data["red-graph"]
+    blue_graph = data["blue-graph"]
+    threads = data["threadnumber"]
+    starting_player = data["starting-player"]
 
-# GIT REPO HAS TO BE CLONED TO ROOT DIR
-os.system(f"bash ~/ErdosGame/edge-colouring-games-main/Erdos-Game-Generic.sh {n_In} {starting_graph} {red_graph_In} {blue_graph_In} {thread_number_In} {starting_player_In}")
+    # Call the solver function
+    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player}")
+
+
+
+
