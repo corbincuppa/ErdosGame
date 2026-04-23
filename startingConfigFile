@@ -69,7 +69,6 @@ if boolean_visualisation.upper() == "YES":
         plt.show()
 
 
-
 # Open the given file and parse the arguments to the software
 with open(file_name, "r") as f:
     data = json.load(f)
