@@ -1,0 +1,35 @@
+import json
+import os
+
+n_In = int(input("What is the order of the starting graph?\n"))
+starting_graph = input("What is the starting graph in graph6 format?\n")
+red_graph_In = input("What is the graph6 format of the graph with which red starts?\n")
+blue_graph_In = input("What is the graph6 format of the graph with which blue starts?\n")
+thread_number_In = int(input("How many threads are allowed?\n"))
+start_player = input("Which colour starts?\n")
+starting_player_In = 0
+if start_player.upper() == "BLUE":
+    starting_player_In = 2
+elif start_player.upper() == "RED":
+    starting_player_In = 1
+boolean_visualisation = input("Do you want to visualise the given graphs?\n")
+if boolean_visualisation.upper() == "YES":
+    os.system(f"python testGraph6")
+
+
+data = { "n" : n_In, 
+        "starting-graph" : starting_graph,
+        "red-graph" : red_graph_In, 
+        "blue-graph" : blue_graph_In, 
+        "threadnumber" : thread_number_In, 
+        "starting-player" : starting_player_In
+}
+
+myJSON = json.dumps(data)
+
+with open("startingConfig.json", "w") as jsonfile:
+    jsonfile.write(myJSON)
+    print("Write successful")
+
+# GIT REPO HAS TO BE CLONED TO ROOT DIR
+os.system(f"bash ~/ErdosGame/edge-colouring-games-main/Erdos-Game-Generic.sh {n_In} {starting_graph} {red_graph_In} {blue_graph_In} {thread_number_In} {starting_player_In}")
