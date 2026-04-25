@@ -64,8 +64,12 @@ if boolean_visualisation.upper() == "YES":
     graph = nx.read_graph6(g.name)
 
     # Visualise each graph
+    color = ["green", "red","blue"]
+    title = ["Starting", "Red", "Blue"]
     for i in range(3):
-        nx.draw(graph[i])
+        fig, ax = plt.subplots()
+        nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax)
+        ax.set_title(f"{title[i]} graph")
         plt.show()
 
 

@@ -219,3 +219,6 @@ edge-colouring-games-main/
 
 # MacOS
 .DS_Store
+
+startingFile.json
+fileWithGraphString
