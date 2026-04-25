@@ -1,0 +1,4 @@
+In StartingConfigFile plt.title(f"{title[i]} graph") did not work. The following lines are made with AI:
+70	fig, ax = plt.subplots()
+71	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
+72	ax.set_title(f"{title[i]} graph")
