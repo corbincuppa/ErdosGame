@@ -63,15 +63,18 @@ if boolean_visualisation.upper() == "YES":
 
     graph = nx.read_graph6(g.name)
 
-    # Visualise each graph
+    # Generate each graph
     color = ["green", "red","blue"]
     title = ["Starting", "Red", "Blue"]
     for i in range(3):
         fig, ax = plt.subplots()
         nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax)
         ax.set_title(f"{title[i]} graph")
-        plt.show()
+        plt.savefig(f'{title[i]}Graph.png')
 
+# Visualise each graph
+for i in range(3):
+    os.system(f"open {title[i]}Graph.png")
 
 # Open the given file and parse the arguments to the software
 with open(file_name, "r") as f:
@@ -86,3 +89,4 @@ with open(file_name, "r") as f:
 
     # Call the solver function
     os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player}")
+
