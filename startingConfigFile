@@ -92,9 +92,16 @@ with open(file_name, "r") as f:
     threads = data["threadnumber"]
     starting_player = data["starting-player"]
 
-    # Call the solver function
-    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player}")
+    # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
+    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} >> pathToResult.txt")
 
+    # Return the results from the results.txt file
+    with open("pathToResult.txt", "r") as h:
+        path = h.readlines()
+        path = path[0].replace("\n", "/results.txt")
+        with open(str(path), "r") as i:
+            result = i.readlines()
+            print(result)
     # To make debug easier
     deletion = input("\nDo you want to delete the generated files?\n")
     if deletion.upper() == "YES":
@@ -102,4 +109,4 @@ with open(file_name, "r") as f:
             os.system(f"rm {title[i]}Graph.png")
         os.system("rm fileWithGraphString")
         os.system("rm startingFile.json")
-
+        os.system("rm pathToResult.txt")

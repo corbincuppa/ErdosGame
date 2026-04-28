@@ -216,6 +216,9 @@ edge-colouring-games-main/
 5-vertices/
 6-vertices/
 7-vertices/
+gen_error.txt
+results.txt
+solv_error.txt
 
 # MacOS
 .DS_Store
