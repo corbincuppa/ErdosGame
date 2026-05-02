@@ -1,15 +1,17 @@
 import os
 import json
+import time
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 # Ask if user wants to make a JSON file or not
-boolean_already_JSON = input("Do you already have a JSON file ready?\n")
-while boolean_already_JSON.upper() != "YES" and boolean_already_JSON.upper() != "NO":
+boolean_already_JSON = input("Do you already have a JSON file ready? [Y/n]\n")
+while boolean_already_JSON.upper() != "Y" and boolean_already_JSON.upper() != "N":
     print("\nThat is not an answer.\n")
-    boolean_already_JSON = input("Do you already have a JSON file ready?\n")
+    boolean_already_JSON = input("Do you already have a JSON file ready? [Y/n]\n")
         
-if boolean_already_JSON.upper() == "NO":
+if boolean_already_JSON.upper() == "N":
     print("Then a JSON file will be made with the next given arguments:")
     # Ask for the given arguments to be put in the JSON config file
     n_In = int(input("What is the order of the starting graph?\n"))
@@ -46,17 +48,17 @@ if boolean_already_JSON.upper() == "NO":
     file_name = "startingFile.json"
 
 # If the user has a JSON file, then ask for its name
-elif boolean_already_JSON.upper() == "YES":
+elif boolean_already_JSON.upper() == "Y":
         # Ask for the name of the JSON file
         file_name = input("What is the name of your JSON file?\n")
 
 # Ask for optional visualisation
-boolean_visualisation = input("Do you want to visualise the given graphs?\n")
-while boolean_visualisation.upper() != "YES" and boolean_visualisation.upper() != "NO":
+boolean_visualisation = input("Do you want to visualise the given graphs? [Y/n]\n")
+while boolean_visualisation.upper() != "Y" and boolean_visualisation.upper() != "N":
     print("\nThat is not an answer.\n")
-    boolean_visualisation = input("Do you want to visualise the given graphs?\n")
+    boolean_visualisation = input("Do you want to visualise the given graphs? [Y/n]\n")
 
-if boolean_visualisation.upper() == "YES":
+if boolean_visualisation.upper() == "Y":
     # Open that file 
     with open(file_name, "r") as f:
         data = json.load(f)
@@ -106,6 +108,20 @@ with open(file_name, "r") as f:
     # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
     os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} >> pathToResult.txt")
 
+
+
+
+
+    # make the current time of when the game was processed for history file making
+    cur = time.ctime(time.time())
+    print(cur)
+
+
+
+
+
+
+
     # Return the results from the results.txt file
     with open("pathToResult.txt", "r") as h:
         path = h.readlines()
@@ -123,3 +139,27 @@ with open(file_name, "r") as f:
             os.system("rm fileWithGraphString")
         os.system("rm startingFile.json")
         os.system("rm pathToResult.txt")
+
+# history file
+# date and time of when the game was processed
+# <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
+
+# game bias, temporary
+bias = 0
+
+# player that wins
+win = result[-2].split(" ")
+win = win[-1].split("\n")
+win = win[0]
+win = int(win)
+if win > 10:
+    winning_player = "red"
+else:
+    winning_player = "blue"
+
+# final score, example
+score = "2 - 10"
+
+# create the history file
+with open("history", "a") as j:
+    j.write(f"{cur}\t{starting_graph}\t{red_graph}\t{blue_graph}\t{bias}\t{winning_player}\t{score}\n")
