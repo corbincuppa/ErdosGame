@@ -20,6 +20,8 @@ if boolean_already_JSON.upper() == "N":
     blue_graph_In = input("What is the graph6 format of the graph with which blue starts?\n")
     thread_number_In = int(input("How many threads are allowed?\n"))
     start_player = input("Which colour starts?\n")
+    # game bias, ask how many extra edges blue colours.
+    bias = int(input("For each edge that red colours, how many extra edges can blue colour? [0 if they colour equally]\n"))
 
     # Change the variable value based on the colour chosen
     starting_player_In = 0
@@ -34,7 +36,8 @@ if boolean_already_JSON.upper() == "N":
             "red-graph" : red_graph_In, 
             "blue-graph" : blue_graph_In, 
             "threadnumber" : thread_number_In, 
-            "starting-player" : starting_player_In
+            "starting-player" : starting_player_In,
+            "bias" : bias
     }
 
     # Dump the data onto the JSON file
@@ -106,21 +109,11 @@ with open(file_name, "r") as f:
     starting_player = data["starting-player"]
 
     # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
-    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} >> pathToResult.txt")
-
-
-
-
+    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
 
     # make the current time of when the game was processed for history file making
     cur = time.ctime(time.time())
     print(cur)
-
-
-
-
-
-
 
     # Return the results from the results.txt file
     with open("pathToResult.txt", "r") as h:
@@ -140,26 +133,22 @@ with open(file_name, "r") as f:
         os.system("rm startingFile.json")
         os.system("rm pathToResult.txt")
 
-# history file
-# date and time of when the game was processed
-# <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
-
-# game bias, temporary
-bias = 0
-
-# player that wins
-win = result[-2].split(" ")
-win = win[-1].split("\n")
-win = win[0]
-win = int(win)
-if win > 10:
-    winning_player = "red"
-else:
-    winning_player = "blue"
-
-# final score, example
-score = "2 - 10"
-
 # create the history file
 with open("history", "a") as j:
+    # history file
+    # date and time of when the game was processed
+    # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
+
+    # player that wins
+    win = result[-2].split(" ")
+    win = win[-1].split("\n")
+    win = win[0]
+    win = int(win)
+    if win > 10:
+        winning_player = "red"
+    else:
+        winning_player = "blue"
+
+    # final score, example
+    score = "2 - 10"
     j.write(f"{cur}\t{starting_graph}\t{red_graph}\t{blue_graph}\t{bias}\t{winning_player}\t{score}\n")
