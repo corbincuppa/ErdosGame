@@ -30,7 +30,7 @@ def visualisationGraphs(file_name):
        
 
         # Make a new file which contains the given graphs in graph6 format
-        with open("fileWithGraphString", "x") as g:
+        with open("fileWithGraphString", "w") as g:
             g.write(data["starting-graph"]+"\n")
             g.write(data["red-graph"]+"\n")
             g.write(data["blue-graph"])
