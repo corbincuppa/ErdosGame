@@ -136,7 +136,7 @@ with open("history", "a") as j:
     if win > 10:
         winning_player = "red"
         score_red = win//11
-        score_blue = win/11 * 10
+        score_blue = win%11
     else:
         winning_player = "blue"
         # score
