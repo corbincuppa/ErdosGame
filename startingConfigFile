@@ -113,7 +113,6 @@ with open(file_name, "r") as f:
 
     # make the current time of when the game was processed for history file making
     cur = time.ctime(time.time())
-    print(cur)
 
     # Return the results from the results.txt file
     with open("pathToResult.txt", "r") as h:
@@ -123,16 +122,6 @@ with open(file_name, "r") as f:
             result = i.readlines()
             print(result)
 
-    # To make debug easier
-    deletion = input("\nDo you want to delete the generated files?\n")
-    if deletion.upper() == "YES":
-        if boolean_visualisation.upper() == "YES":
-            for i in range(3):
-                os.system(f"rm {title[i]}Graph.png")
-            os.system("rm fileWithGraphString")
-        os.system("rm startingFile.json")
-        os.system("rm pathToResult.txt")
-
 # create the history file
 with open("history", "a") as j:
     # history file
@@ -140,15 +129,20 @@ with open("history", "a") as j:
     # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
 
     # player that wins
-    win = result[-2].split(" ")
+    win = result[-3].split(" ")
     win = win[-1].split("\n")
     win = win[0]
     win = int(win)
     if win > 10:
         winning_player = "red"
+        score_red = win//11
+        score_blue = win/11 * 10
     else:
         winning_player = "blue"
+        # score
+        score_red = win
+        score_blue = win
+    score = f"{score_red} - {score_blue}"
 
-    # final score, example
-    score = "2 - 10"
+    # write the history of the game to the file
     j.write(f"{cur}\t{starting_graph}\t{red_graph}\t{blue_graph}\t{bias}\t{winning_player}\t{score}\n")
