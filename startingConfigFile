@@ -66,6 +66,7 @@ def writeHistory(file_name):
         blue_graph = data["blue-graph"]
         threads = data["threadnumber"]
         starting_player = data["starting-player"]
+        bias = data["bias"]
 
         # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
         os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
