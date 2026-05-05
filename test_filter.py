@@ -58,7 +58,6 @@ def test_visualisationGraphs():
 def test_visualisationGraphs_ongeldige_graph6():
     # testStartingFileOngeldig.json
     # {"n": 4, "starting-graph": "Ongeldig", "red-graph": "Ongeldig", "blue-graph": "Ongeldig", "threadnumber": 1, "starting-player": 1, "bias": 0}
-    # networkx gooit een ValueError bij ongeldige graph6
     with pytest.raises(NetworkXError):
         visualisationGraphs("testStartingFileOngeldig.json")
 
