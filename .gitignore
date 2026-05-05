@@ -211,6 +211,7 @@ nauty2_8_6/
 
 # Erdos Game Solver
 edge-colouring-games-main/
+readGraph/
 3-vertices/
 4-vertices/
 5-vertices/
@@ -219,6 +220,8 @@ edge-colouring-games-main/
 gen_error.txt
 results.txt
 solv_error.txt
+erdos-Solver
+gen-colex
 
 # MacOS
 .DS_Store
@@ -230,3 +233,6 @@ StartingGraph.png
 RedGraph.png
 BlueGraph.png
 pathToResult.txt
+
+# venv
+.game/
