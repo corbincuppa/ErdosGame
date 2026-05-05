@@ -1,4 +1,4 @@
-from unittest import mock
+from unittest.mock import patch
 import pytest
 import json
 import os
@@ -33,22 +33,25 @@ def test_makeJSONFile():
 def test_visualisationGraphs():
     # testStartingFile.json
     # {"n": 4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}
-    visualisationGraphs("testStartingFile.json")
 
-    #fileWithGraphString ok opgesteld? 
-    with open("fileWithGraphString", "r") as f:
-        lines = f.readlines
-    assert lines[0] == "C~"
-    assert lines[1] == "C?"
-    assert lines[2] == "C?"
+    with patch("os.system") as mock_system:
+        visualisationGraphs("testStartingFile.json")
+        
+        # Controleert of os.system 3 keer is aangeroepen (voor openen PNG's)
+        assert mock_system.call_count == 3
+    
+        #fileWithGraphString ok opgesteld? 
+        with open("fileWithGraphString", "r") as f:
+            lines = f.readlines()
+            assert lines[0] == "C~\n"
+            assert lines[1] == "C?\n"
+            assert lines[2] == "C?"
 
-    # Controleert of het bestanden bestaat
-    assert os.path.exists("StartingGraph.png")
-    assert os.path.exists("RedGraph.png")
-    assert os.path.exists("BlueGraph.png")
+            # Controleert of het bestanden bestaat
+            assert os.path.exists("StartingGraph.png")
+            assert os.path.exists("RedGraph.png")
+            assert os.path.exists("BlueGraph.png")
 
-    # Controleert of os.system 3 keer is aangeroepen (voor openen PNG's)
-    assert mock.call_count == 3
 
 
 def test_visualisationGraphs_ongeldige_graph6():
