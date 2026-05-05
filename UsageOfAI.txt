@@ -1,7 +1,8 @@
 In startingConfigFile.py plt.title(f"{title[i]} graph") did not work. The following lines are made with AI:
-70	fig, ax = plt.subplots()
-71	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
-72	ax.set_title(f"{title[i]} graph")
+45	fig, ax = plt.subplots()
+46	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
+47	ax.set_title(f"{title[i]} graph")
 
 In test_filter.py:
-48  assert mock.call_count == 3
+38  with patch("os.system") as mock_system:
+42  assert mock.call_count == 3
