@@ -6,3 +6,11 @@ In startingConfigFile.py plt.title(f"{title[i]} graph") did not work. The follow
 In test_filter.py:
 38  with patch("os.system") as mock_system:
 42  assert mock.call_count == 3
+
+In historyBackUps.py:
+ 8  directory_backups = os.path.expanduser("~/.played-games")
+ 9  os.makedirs(directory_backups, exist_ok=True)
+
+25  while True:
+26    schedule.run_pending()
+27    time.sleep(1)
