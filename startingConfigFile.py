@@ -17,14 +17,14 @@ def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starti
 
     # Dump the data onto the JSON file
     myJSON = json.dumps(data)
-    with open("startingFile.json", "x") as jsonfile:
+    with open("startingFile.json", "w") as jsonfile:
         jsonfile.write(myJSON)
         print("Write successful!\n")
         print("Your JSON file is called 'startingFile.json'.\n")
 
 def visualisationGraphs(file_name):
      # Open that file 
-    with open(file_name, "r") as f:
+    with open(file_name_JSON, "r") as f:
         data = json.load(f)
         n = data["n"]
        
@@ -55,9 +55,9 @@ def visualisationGraphs(file_name):
     for i in range(3):
         os.system(f"open {title[i]}Graph.png")
 
-def writeHistory(file_name):
+def writeHistory(destination_path, file_name_JSON):
     # Open the given file and parse the arguments to the software
-    with open(file_name, "r") as f:
+    with open(file_name_JSON, "r") as f:
         data = json.load(f)
         n = data["n"]
         # Put the values in the JSON file into arguments
@@ -76,14 +76,33 @@ def writeHistory(file_name):
 
         # Return the results from the results.txt file
         with open("pathToResult.txt", "r") as h:
-            path = h.readlines()
-            path = path[0].replace("\n", "/results.txt")
-            with open(str(path), "r") as i:
+            path_res = h.readlines()
+            path_res = path_res[0].replace("\n", "/results.txt")
+            with open(str(path_res), "r") as i:
                 result = i.readlines()
                 print(result)
 
     # create the history file
-    with open("history", "a") as j:
+
+
+
+
+
+
+
+    # ----------------CREATE HISTORY FILE IN ./PLAYED-GAMES DIR -----------------------------------------------------------------
+    # AI !!!!!!!!!!!!!!!!!!!!!!
+    os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+    file_name_history = f"history.txt"
+    destination_path = os.path.join(destination_path, file_name_history)
+    with open(destination_path, "a") as j:
+
+
+
+
+
+
+        
         # history file
         # date and time of when the game was processed
         # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
@@ -142,13 +161,13 @@ def user_friendly_solver():
 
         makeJSONFile(n_In, starting_graph, red_graph_In, blue_graph_In, thread_number_In, start_player, bias)
 
-        # If the user doesn't already have one, make the file_name variable the created JSON file
-        file_name = "startingFile.json"
+        # If the user doesn't already have one, make the file_name_JSON variable the created JSON file
+        file_name_JSON = "startingFile.json"
 
     # If the user has a JSON file, then ask for its name
     elif boolean_already_JSON.upper() == "Y":
             # Ask for the name of the JSON file
-            file_name = input("What is the name of your JSON file?\n")
+            file_name_JSON = input("What is the name of your JSON file?\n")
 
     # Ask for optional visualisation
     boolean_visualisation = input("Do you want to visualise the given graphs? [Y/n]\n")
@@ -157,11 +176,10 @@ def user_friendly_solver():
         boolean_visualisation = input("Do you want to visualise the given graphs? [Y/n]\n")
 
     if boolean_visualisation.upper() == "Y":
-        visualisationGraphs(file_name)
+        visualisationGraphs(file_name_JSON)
 
     elif boolean_visualisation.upper() == "NO":
         print("\nOK.\nHere are the results of the graph solver:")
 
-    writeHistory(file_name)
-
-#user_friendly_solver()
+    path = os.path.expanduser(f"~/ErdosGame")
+    writeHistory(path, file_name_JSON)
