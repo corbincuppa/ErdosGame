@@ -22,6 +22,7 @@ def test_writeHistory():
     
         # Controleert of het bestand bestaat
         assert os.path.exists("pathToResult.txt")
+        # is de resultaat in pathToResult!!!!!!!!!!!!!!!
 
         with open("history", "r") as f:
             regels = f.readlines()
@@ -37,11 +38,17 @@ def test_writeHistory_foute_input_graaf():
         writeHistory("testStartingFileOngeldigGraaf.json")
 
 
-def test_writeHistory_foute_input_int():
+def test_writeHistory_foute_input_intType():
     # testStartingFileOngeldigInt.json
     # {"n": "vier", "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": "een", "starting-player": "een", "bias": "nul"}
     with pytest.raises(TypeError):
-        writeHistory("testStartingFileOngeldigInt.json")
+        writeHistory("testStartingFileOngeldigIntType.json")
+
+def test_writeHistory_foute_input_intValue():
+    # testStartingFileOngeldigIntValue.json
+    # {"n": -4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": -1, "starting-player": -1, "bias": -1}
+    with pytest.raises(ValueError):
+        writeHistory("testStartingFileOngeldigIntValue.json")
 
 
 def test_writeHistory_foute_input_missing():
@@ -55,11 +62,6 @@ def test_visualisationGraphs_bestand_ontbreekt():
     with pytest.raises(FileNotFoundError):
         writeHistory("/bestaat/niet.json")
 
-
-
-
-
-# is de resultaat in pathToResult
 
 # moet de "om de uur" backup ook getest worden?????
 

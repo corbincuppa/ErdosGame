@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import time
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -68,6 +69,13 @@ def writeHistory(file_name):
         starting_player = data["starting-player"]
         bias = data["bias"]
 
+        if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
+            raise TypeError()
+        if n <= 0 or threads <= 0 or starting_player <= 0 or starting_player > 2 or bias < 0:
+            raise ValueError()
+        #if not is_graph6_format(starting_player) or not is_graph6_format(red_graph) or not is_graph6_format(blue_graph):
+            #raise nx.NetworkXError
+        
         # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
         os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
 
