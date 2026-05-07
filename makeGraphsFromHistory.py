@@ -1,3 +1,4 @@
+import os
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -15,6 +16,8 @@ def makeGraphs():
         t.write(blue_graph_str)
 
     graph = nx.read_graph6("temp.txt")
+
+    os.system("rm temp.txt")
 
     # Generate each graph
     color = ["green", "red","blue"]
