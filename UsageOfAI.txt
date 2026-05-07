@@ -8,9 +8,9 @@ In test_filter.py:
 42  assert mock.call_count == 3
 
 In historyBackUps.py:
- 8  directory_backups = os.path.expanduser("~/.played-games")
- 9  os.makedirs(directory_backups, exist_ok=True)
+ 9  directory_backups = os.path.expanduser("~/.played-games")
+ 11  os.makedirs(directory_backups, exist_ok=True)
 
-25  while True:
-26    schedule.run_pending()
-27    time.sleep(1)
+30  while True:
+31    schedule.run_pending()
+32    time.sleep(1)
