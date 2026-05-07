@@ -4,6 +4,7 @@ import os
 title = ["Starting", "Red", "Blue"]
 for i in range(3):
     os.system(f"rm {title[i]}Graph.png")
+    os.system(f"rm static/images/{title[i]}Graph.png")
 os.system("rm fileWithGraphString")
 os.system("rm startingFile.json")
 os.system("rm pathToResult.txt")

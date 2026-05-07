@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Most recent Erdos game</title>
+    <style>
+        table {
+            width: 300px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Most recent Erdos game</h1>
+    <h3>End graph</h3>
+    <p>Not yet implemented 🙃</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Starting graph</th>
+                <th>Red graph</th>
+                <th>Blue graph</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td> <img src = "{{ url_for('static', filename='images/StartingGraph.png') }}" alt="Starting graph"> </td>
+                <td><img src = "{{ url_for('static', filename='images/RedGraph.png') }}" alt="Blue graph"></td>
+                <td><img src = "{{ url_for('static', filename='images/BlueGraph.png') }}" alt="Red graph"></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
