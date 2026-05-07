@@ -12,7 +12,7 @@ def test_makeJSONFile():
         red_graph="C?",
         blue_graph="C?",
         thread_number=1,
-        starting_player=1,
+        starting_player= 1,
         bias=0
     )
 
@@ -57,9 +57,9 @@ def test_visualisationGraphs():
 
 def test_visualisationGraphs_ongeldige_graph6():
     # testStartingFileOngeldig.json
-    # {"n": 4, "starting-graph": "Ongeldig", "red-graph": "Ongeldig", "blue-graph": "Ongeldig", "threadnumber": 1, "starting-player": 1, "bias": 0}
+    # {"n": 4, "starting-graph": "ongeldig", "red-graph": "ongeldig", "blue-graph": "ongeldig", "threadnumber": 1, "starting-player": 1, "bias": 0}
     with pytest.raises(NetworkXError):
-        visualisationGraphs("testStartingFileOngeldig.json")
+        visualisationGraphs("testStartingFileOngeldigGraaf.json")
 
 
 def test_visualisationGraphs_bestand_ontbreekt():
