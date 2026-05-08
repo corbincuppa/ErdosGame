@@ -38,6 +38,37 @@ This programs makes use of JSON files. If you already have a JSON file in the fo
 ```
 Then input the name of that JSON file to be parsed into the solver. If not, the program will make a JSON file for you and automatically run the solver. You may also choose to visualise the graphs. These will be saved as '.png' files to your computer and shown by the program. 
 
+### Usage of makeJSONFile
+
+Usage: `python3 -c 'from startingConfigFile import makeJSONFile ; makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias)' `
+
+```
+The arguments have the same definition as the elements in the JSON file format above. See "Usage of user_friendly_solver".
+```
+
+### Usage of visualisationGraphs
+
+Usage: `python3 -c 'from startingConfigFile import visualisationGraphs; visualisationGraphs(file_name)' `
+```
+file_name				the name of the JSON file containing the given format
+```
+This program takes the given JSON file and saves the starting, red and blue graphs as `.png` files in the `~/ErdosGame` directory.
+
+
+### Usage of writeHistory
+
+Usage: `python3 -c 'from startingConfigFile import writeHistory; writeHistory(file_name)' `
+
+```
+file_name				the name of the JSON file containing the given format
+```
+This program runs the solver given the arguments in the JSON file and saves a history of the played game containing the time of when the game was processed, the starting, red and blue graphs, bias and final score. This is saved to `~/ErdosGame/history.txt`
+
+### Usage of restoreBackup
+Usage: `python3 restoreBackup`
+
+This program will show all possible backups, which are saved hourly. It then asks which history backup file you would like to restore to. The history.txt is then overwritten by the chosen backup.
+
 ### Usage of deletion
 
 Usage: `python3 deletion`
