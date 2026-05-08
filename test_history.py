@@ -24,7 +24,7 @@ def test_writeHistory():
         assert os.path.exists("pathToResult.txt")
         # is de resultaat in pathToResult!!!!!!!!!!!!!!!
 
-        with open("history", "r") as f:
+        with open("history.txt", "r") as f:
             regels = f.readlines()
             laatsteRegel = regels[-1]
         

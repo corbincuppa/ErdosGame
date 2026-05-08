@@ -91,7 +91,7 @@ def writeHistory(file_name):
                 print(result)
 
     # create the history file
-    with open("history", "a") as j:
+    with open("history.txt", "a") as j:
         # history file
         # date and time of when the game was processed
         # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
