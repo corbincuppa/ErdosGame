@@ -1,6 +1,5 @@
 import os
 import json
-import re
 import time
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -105,6 +104,23 @@ def writeHistory(file_name):
 
     # create the history file
     with open("history.txt", "a") as j:
+
+        # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
+        os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
+
+        # make the current time of when the game was processed for history file making
+        cur = time.ctime(time.time())
+
+        # Return the results from the results.txt file
+        with open("pathToResult.txt", "r") as h:
+            path = h.readlines()
+            path = path[0].replace("\n", "/results.txt")
+            with open(str(path), "r") as i:
+                result = i.readlines()
+                print(result)
+
+    # create the history file
+    with open("history", "a") as j:
         # history file
         # date and time of when the game was processed
         # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
