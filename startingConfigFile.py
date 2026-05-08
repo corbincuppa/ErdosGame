@@ -163,5 +163,3 @@ def user_friendly_solver():
         print("\nOK.\nHere are the results of the graph solver:")
 
     writeHistory(file_name)
-
-user_friendly_solver()
