@@ -2,8 +2,11 @@ import os
 # To make debug easier
 
 title = ["Starting", "Red", "Blue"]
+file = ["testStartingFile.json", "testStartingFileIllegalGraph.json", "testStartingFileIllegalIntType.json", "testStartingFileIllegalIntValue.json", "testStartingFileIllegalMissing.json"]
 for i in range(3):
     os.system(f"rm {title[i]}Graph.png")
 os.system("rm fileWithGraphString")
 os.system("rm startingFile.json")
 os.system("rm pathToResult.txt")
+for i in range (5):
+    os.system(f"rm {file[i]}")

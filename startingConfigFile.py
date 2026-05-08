@@ -5,6 +5,19 @@ import time
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# ------------ AI -----------------
+
+def is_graph6_format(s):
+    try:
+        nx.from_graph6_bytes(s.encode())
+        return True
+    except nx.NetworkXError:
+        return False
+    
+# ----------------------------------
+
+
+
 def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias):
     # Make the JSON format
     data = { "n" : n, 
@@ -69,26 +82,26 @@ def writeHistory(file_name):
         starting_player = data["starting-player"]
         bias = data["bias"]
 
-        if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
-            raise TypeError()
-        if n <= 0 or threads <= 0 or starting_player <= 0 or starting_player > 2 or bias < 0:
-            raise ValueError()
-        #if not is_graph6_format(starting_player) or not is_graph6_format(red_graph) or not is_graph6_format(blue_graph):
-            #raise nx.NetworkXError
-        
-        # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
-        os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
+    if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
+        raise TypeError()
+    if n <= 0 or threads <= 0 or starting_player <= 0 or starting_player > 2 or bias < 0:
+        raise ValueError()
+    if not is_graph6_format(starting_graph) or not is_graph6_format(red_graph) or not is_graph6_format(blue_graph):
+        raise nx.NetworkXError
+    
+    # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
+    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
 
-        # make the current time of when the game was processed for history file making
-        cur = time.ctime(time.time())
+    # make the current time of when the game was processed for history file making
+    cur = time.ctime(time.time())
 
-        # Return the results from the results.txt file
-        with open("pathToResult.txt", "r") as h:
-            path = h.readlines()
-            path = path[0].replace("\n", "/results.txt")
-            with open(str(path), "r") as i:
-                result = i.readlines()
-                print(result)
+    # Return the results from the results.txt file
+    with open("pathToResult.txt", "r") as h:
+        path = h.readlines()
+        path = path[0].replace("\n", "/results.txt")
+        with open(str(path), "r") as i:
+            result = i.readlines()
+            print(result)
 
     # create the history file
     with open("history.txt", "a") as j:
