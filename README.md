@@ -1,10 +1,10 @@
-# edge-colouring-games
+# ErdosGame
 
 This repository contains a more user friendly solver for a graph-colouring game designed by Erdös which is created for the article "On edge-colouring-games by Erdös, and Bensail and Mc Inerney".
 
 The latest version of this program can be obtained from <https://github.com/ErdosGame>.
 
-This program offers a more user friendly interface for the erdos-colouring-games(https://github.com/Algorithmic-Graph-Theory-Group/edge-colouring-games) solver. Optionally the specified graphs and end graphs of played games can be visualised.
+This program offers a more user friendly interface for the [`erdos-colouring-games`](https://github.com/Algorithmic-Graph-Theory-Group/edge-colouring-games) solver. Optionally the specified graphs and end graphs of played games can be visualised. The program also holds history of the played games with the time of when the game was processed, given starting graph, red graph and blue graph, bias, winning player and final score.
 
 ### Installation
 
@@ -22,27 +22,32 @@ This requires a working shell and `make`.
 ### Usage of user_friendly_solver
 
 
-Usage: `python3 -c 'from startingConfigFile import user_friendly_solver; user_friendly_solver()'`
+Usage: `python3 -c 'from startingConfigFile import user_friendly_solver; user_friendly_solver()' `
 
 This programs makes use of JSON files. If you already have a JSON file in the following format:
 ```
 {
-	"n" : n
-	"starting-graph" : starting_graph,
-	"red-graph" : red_graph, 
-	"blue-graph" : blue_graph, 
-	"threadnumber" : thread_number, 
-	"starting-player" : starting_player,
-	"bias" : bias
+	"n" : 				the order of the graph on which the game is played
+	"starting-graph" : 	the starting graph in graph6 format
+	"red-graph" : 		the start graph of the red player (Alice) in graph6 format
+	"blue-graph" : 		the start graph of the blue player (Bob) in graph6 format
+	"threadnumber" : 	the number of threads
+	"starting-player" : 	the player who starts (red or blue)
+	"bias" : 			blue can select # more edges than red in its turn
 }
 ```
-Then give the name of that JSON file to be parsed into the solver. If not, the program will make a JSON file for you and automatically run the solver. You may also choose to visualise the graphs. These will be saved as '.png' files to your computer. 
+Then input the name of that JSON file to be parsed into the solver. If not, the program will make a JSON file for you and automatically run the solver. You may also choose to visualise the graphs. These will be saved as '.png' files to your computer and shown by the program. 
 
-### Examples
-`function`
-Explanation
+### Usage of deletion
 
+Usage: `python3 deletion`
 
-### Verification
-
-Lorem ipsum
+If you wish to delete all generated files by the program, run the deletion script. This will delete the following files:
+```
+StartGraph.png
+RedGraph.png
+fileWithGraphString
+pathToResult.txt
+temp.txt
+startingFile.json
+```
