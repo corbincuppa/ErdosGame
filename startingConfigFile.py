@@ -139,10 +139,10 @@ def exportingEndGameGraphs(file_name):
 
     endGameRed = result[2:(n+2)]
     endGameRed = listConverter(endGameRed)
-    endGameRed = nx.from_numpy_matrix(np.matrix(endGameRed), create_using=nx.DiGraph)
+    endGameRed = nx.from_numpy_array(np.matrix(endGameRed))
     endGameBlue = result [(n+3): (2*n + 3)]
     endGameBlue = listConverter(endGameBlue)
-    endGameBlue = nx.from_numpy_matrix(np.matrix(endGameBlue),create_using=nx.DiGraph)
+    endGameBlue = nx.from_numpy_array(np.matrix(endGameBlue))
 
     
     fig, ax = plt.subplots()
