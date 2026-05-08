@@ -43,7 +43,8 @@ Then input the name of that JSON file to be parsed into the solver. If not, the 
 Usage: `python3 -c 'from startingConfigFile import makeJSONFile ; makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias)' `
 
 ```
-The arguments have the same definition as the elements in the JSON file format above. See "Usage of user_friendly_solver".
+The arguments have the same definition as the elements in the JSON file format above. 
+See "Usage of user_friendly_solver".
 ```
 
 ### Usage of visualisationGraphs
