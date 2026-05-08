@@ -13,7 +13,7 @@ def before_module():
         {"n": "four", "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber":"one", "starting-player": "one", "bias": "zero"}, 
         {"n": -4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": -1, "starting-player": -1, "bias": -1}, 
         {"starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}]
-    file = ["testStartingFileIllegalGraph.json", "testStartingFileIllegalIntType.json", "testStartingFileIllegalIntValue.json", "testStartingFileIllegalMissing.json"]
+    file = ["testStartingFile.json", "testStartingFileIllegalGraph.json", "testStartingFileIllegalIntType.json", "testStartingFileIllegalIntValue.json", "testStartingFileIllegalMissing.json"]
     for i in range(5):
         name_file = file[i]
         myJSON = json.dumps(data[i])
