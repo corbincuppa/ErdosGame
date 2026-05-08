@@ -108,23 +108,52 @@ def writeHistory(file_name):
         j.write(f"{cur}\t{starting_graph}\t{red_graph}\t{blue_graph}\t{bias}\t{winning_player}\t{score}\n")
 
 
+
+
+def listConverter(list):
+    #turns a list with strings into matrix format
+    result = []
+    for row in list:
+        row = row.strip()  
+        new_row = []
+        for char in row:
+            if char == 'n':
+                new_row.append(0)
+            else:  
+                new_row.append(int(char))
+        result.append(new_row)
+    return result
+
 def exportingEndGameGraphs(file_name):
-    #de grootte van de matrix
+    #the size of the matrix
     with open(file_name, "r") as f:
         data = json.load(f)
         n = data["n"]
-    #de resultaten 
+    #extracting the end-game matrices 
     with open("pathToResult.txt", "r") as h:
         path = h.readlines()
         path = path[0].replace("\n", "/results.txt")
-        with open("result", "r") as i:
+        with open(str(path), "r") as i:
             result = i.readlines()
-            print(result)
 
-    endGameRed = result[2:(2+n)]
-    endGameBlue = result [(2+n+2): (2+n+2+n)]
+    endGameRed = result[2:(n+2)]
+    endGameRed = listConverter(endGameRed)
+    endGameBlue = result [(n+3): (2*n + 3)]
+    endGameBlue = listConverter(endGameBlue)
 
+    
+    fig, ax = plt.subplots()
+    nx.draw(endGameRed, node_color="red", edge_color="red", ax=ax)
+    ax.set_title(f"End game Alice graph")
+    plt.savefig(f"EndGameAliceGraph.png")
 
+    fig, ax = plt.subplots()
+    nx.draw(endGameBlue, node_color="blue", edge_color="blue", ax=ax)
+    ax.set_title(f"End game Bob graph")
+    plt.savefig(f"EndGameBobGraph.png")
+
+    print("\nYour graphs have been saved as .png files: EndGameAliceGraph.png and EndGameBobGraph.png\n")
+    
 
 
 
@@ -177,5 +206,17 @@ def user_friendly_solver():
         print("\nOK.\nHere are the results of the graph solver:")
 
     writeHistory(file_name)
+
+    # Ask for optional exporting of the end-game graphs
+    boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
+    while boolean_exporting.upper() != "Y" and boolean_exporting.upper() != "N":
+        print("\nThat is not an answer.\n")
+        boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
+
+    if boolean_exporting.upper() == "Y":
+        exportingEndGameGraphs(file_name)
+
+    elif boolean_exporting.upper() == "NO":
+        print("Finished")
 
 user_friendly_solver()
