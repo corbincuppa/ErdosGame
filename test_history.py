@@ -41,26 +41,26 @@ def test_writeHistory():
     # testStartingFile.json
     # {"n": 4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}
     with patch('os.system') as mock_system:
-        with patch('startingConfigFile.writeHistory') as mock_writeHistory:
-            mock_writeHistory("testStartingFile.json")
 
-            assert mock_system.call_count == 0
-            aangeroepen_commando = mock_system.call_args[0]
+        writeHistory("testStartingFile.json")
 
-            verwacht_commando_deel = "bash Erdos-Game-Generic.sh 4 C~ C? C? 1 1 0 >> pathToResult.txt"
-                
-            # Controleer of het commando de juiste parameters bevat
-            assert verwacht_commando_deel in aangeroepen_commando
-        
-            # Controleert of het bestand bestaat
-            assert os.path.exists("pathToResult.txt")
-            # is de resultaat in pathToResult!!!!!!!!!!!!!!!
+        assert mock_system.call_count == 1
+        aangeroepen_commando = mock_system.call_args[0]
 
-            with open("history.txt", "r") as f:
-                regels = f.readlines()
-                laatsteRegel = regels[-1]
+        verwacht_commando_deel = "bash Erdos-Game-Generic.sh 4 C~ C? C? 1 1 0 >> pathToResult.txt"
             
-            assert "C~\tC?\tC?\t0\tblue\t2 - 2\n" in laatsteRegel
+        # Controleer of het commando de juiste parameters bevat
+        assert verwacht_commando_deel in aangeroepen_commando
+    
+        # Controleert of het bestand bestaat
+        assert os.path.exists("pathToResult.txt")
+        # is de resultaat in pathToResult!!!!!!!!!!!!!!!
+
+        with open("history.txt", "r") as f:
+            regels = f.readlines()
+            laatsteRegel = regels[-1]
+        
+        assert "C~\tC?\tC?\t0\tblue\t2 - 2\n" in laatsteRegel
 
 
 def test_writeHistory_illegal_input_graph():
