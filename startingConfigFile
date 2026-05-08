@@ -108,7 +108,21 @@ def writeHistory(file_name):
         j.write(f"{cur}\t{starting_graph}\t{red_graph}\t{blue_graph}\t{bias}\t{winning_player}\t{score}\n")
 
 
+def exportingEndGameGraphs(file_name):
+    #de grootte van de matrix
+    with open(file_name, "r") as f:
+        data = json.load(f)
+        n = data["n"]
+    #de resultaten 
+    with open("pathToResult.txt", "r") as h:
+        path = h.readlines()
+        path = path[0].replace("\n", "/results.txt")
+        with open("result", "r") as i:
+            result = i.readlines()
+            print(result)
 
+    endGameRed = result[2:(2+n)]
+    endGameBlue = result [(2+n+2): (2+n+2+n)]
 
 
 
