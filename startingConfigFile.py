@@ -80,13 +80,13 @@ def writeHistory(destination_path, file_name_JSON):
     with open(file_name_JSON, "r") as f:
         data = json.load(f)
         # Put the values in the JSON file into arguments
-        n = int(data["n"])
+        n = data["n"]
         starting_graph = data["starting-graph"]
         red_graph = data["red-graph"]
         blue_graph = data["blue-graph"]
-        threads = int(data["threadnumber"])
-        starting_player = int(data["starting-player"])
-        bias = int(data["bias"])
+        threads = data["threadnumber"]
+        starting_player = data["starting-player"]
+        bias = data["bias"]
 
     if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
         raise TypeError()
