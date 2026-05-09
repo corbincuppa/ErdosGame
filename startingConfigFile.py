@@ -36,7 +36,7 @@ def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starti
         print("Write successful!\n")
         print("Your JSON file is called 'startingFile.json'.\n")
 
-def visualisationGraphs(file_name):
+def visualisationGraphs(file_name_JSON):
      # Open that file 
     with open(file_name_JSON, "r") as f:
         data = json.load(f)
