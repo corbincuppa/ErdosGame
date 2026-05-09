@@ -2,7 +2,21 @@ import os
 import json
 import time
 import networkx as nx
+import numpy as np
 import matplotlib.pyplot as plt
+
+# ------------ AI -----------------
+
+def is_graph6_format(s):
+    try:
+        nx.from_graph6_bytes(s.encode())
+        return True
+    except nx.NetworkXError:
+        return False
+    
+# ----------------------------------
+
+
 
 def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias):
     # Make the JSON format
@@ -68,6 +82,30 @@ def writeHistory(destination_path, file_name_JSON):
         starting_player = data["starting-player"]
         bias = data["bias"]
 
+    if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
+        raise TypeError()
+    if n <= 0 or threads <= 0 or starting_player <= 0 or starting_player > 2 or bias < 0:
+        raise ValueError()
+    if not is_graph6_format(starting_graph) or not is_graph6_format(red_graph) or not is_graph6_format(blue_graph):
+        raise nx.NetworkXError
+    
+    # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
+    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
+
+    # make the current time of when the game was processed for history file making
+    cur = time.ctime(time.time())
+
+    # Return the results from the results.txt file
+    with open("pathToResult.txt", "r") as h:
+        path = h.readlines()
+        path = path[0].replace("\n", "/results.txt")
+        with open(str(path), "r") as i:
+            result = i.readlines()
+            print(result)
+
+    # create the history file
+    with open("history.txt", "a") as j:
+
         # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
         os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
 
@@ -129,7 +167,52 @@ def writeHistory(destination_path, file_name_JSON):
 
 
 
+def listConverter(list):
+    #turns a list with strings into matrix format
+    result = []
+    for row in list:
+        row = row.strip()  
+        new_row = []
+        for char in row:
+            if char == 'n':
+                new_row.append(0)
+            else:  
+                new_row.append(int(char))
+        result.append(new_row)
+    return result
 
+def exportingEndGameGraphs(file_name, extension):
+    #the size of the matrix
+    with open(file_name, "r") as f:
+        data = json.load(f)
+        n = data["n"]
+    #extracting the end-game matrices 
+    with open("pathToResult.txt", "r") as h:
+        path = h.readlines()
+        path = path[0].replace("\n", "/results.txt")
+        with open(str(path), "r") as i:
+            result = i.readlines()
+
+    endGameRed = result[2:(n+2)]
+    endGameRed = listConverter(endGameRed)
+    endGameRed = nx.from_numpy_array(np.matrix(endGameRed))
+    endGameBlue = result [(n+3): (2*n + 3)]
+    endGameBlue = listConverter(endGameBlue)
+    endGameBlue = nx.from_numpy_array(np.matrix(endGameBlue))
+
+    
+    fig, ax = plt.subplots()
+    nx.draw(endGameRed, node_color="red", edge_color="red", ax=ax)
+    ax.set_title(f"End game Alice graph")
+    plt.savefig(f"EndGameAliceGraph.{extension}")
+
+    fig, ax = plt.subplots()
+    nx.draw(endGameBlue, node_color="blue", edge_color="blue", ax=ax)
+    ax.set_title(f"End game Bob graph")
+    plt.savefig(f"EndGameBobGraph.{extension}")
+
+    print("\nYour graphs have been saved as .png files: EndGameAliceGraph.png and EndGameBobGraph.png\n")
+    
 
 
 
@@ -183,3 +266,15 @@ def user_friendly_solver():
 
     path = os.path.expanduser(f"~/ErdosGame")
     writeHistory(path, file_name_JSON)
+
+    # Ask for optional exporting of the end-game graphs
+    boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
+    while boolean_exporting.upper() != "Y" and boolean_exporting.upper() != "N":
+        print("\nThat is not an answer.\n")
+        boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
+
+    if boolean_exporting.upper() == "Y":
+        exportingEndGameGraphs(file_name, "png")
+
+    elif boolean_exporting.upper() == "NO":
+        print("Finished")

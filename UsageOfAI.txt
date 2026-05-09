@@ -14,3 +14,8 @@ In historyBackUps.py:
 30  while True:
 31    schedule.run_pending()
 32    time.sleep(1)
+In test_history.py
+13  assert mock_system.call_count == 1
+14  aangeroepen_commando = mock_system.call_args[0]
+16  verwacht_commando_deel1 = "bash Erdos-Game-Generic.sh 4 C~ C? C? 1 1 0 >> pathToResult.txt"
+19  assert verwacht_commando_deel1 in aangeroepen_commando

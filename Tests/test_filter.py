@@ -5,6 +5,25 @@ import json
 import os
 from startingConfigFile import makeJSONFile, visualisationGraphs
 
+@pytest.fixture(scope="session", autouse=True)
+def before_module():
+    # Create each testing JSON file
+    data = [{"n": 4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}, {"n": 4, "starting-graph": "illegal", "red-graph": "illegal", "blue-graph": "illegal", "threadnumber": 1, "starting-player": 1, "bias": 0}, 
+        {"n": "four", "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber":"one", "starting-player": "one", "bias": "zero"}, 
+        {"n": -4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": -1, "starting-player": -1, "bias": -1}, 
+        {"starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}]
+    file = ["testStartingFile.json", "testStartingFileIllegalGraph.json", "testStartingFileIllegalIntType.json", "testStartingFileIllegalIntValue.json", "testStartingFileIllegalMissing.json"]
+    for i in range(5):
+        name_file = file[i]
+        myJSON = json.dumps(data[i])
+        with open(name_file, "w") as f:
+            f.write(myJSON)
+    # Run tests
+    yield
+    # Delete all testing JSON files 
+    os.system('python3 deletion')
+
+
 def test_makeJSONFile():
     makeJSONFile(
         n=4,
@@ -12,7 +31,7 @@ def test_makeJSONFile():
         red_graph="C?",
         blue_graph="C?",
         thread_number=1,
-        starting_player=1,
+        starting_player= 1,
         bias=0
     )
 
@@ -56,10 +75,10 @@ def test_visualisationGraphs():
 
 
 def test_visualisationGraphs_ongeldige_graph6():
-    # testStartingFileOngeldig.json
-    # {"n": 4, "starting-graph": "Ongeldig", "red-graph": "Ongeldig", "blue-graph": "Ongeldig", "threadnumber": 1, "starting-player": 1, "bias": 0}
+    # testStartingFileIllegalGraph.json
+    # {"n": 4, "starting-graph": "illegal", "red-graph": "illegal", "blue-graph": "illegal", "threadnumber": 1, "starting-player": 1, "bias": 0}
     with pytest.raises(NetworkXError):
-        visualisationGraphs("testStartingFileOngeldig.json")
+        visualisationGraphs("testStartingFileIllegalGraph.json")
 
 
 def test_visualisationGraphs_bestand_ontbreekt():
