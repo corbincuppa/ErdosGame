@@ -274,7 +274,7 @@ def user_friendly_solver():
         boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
 
     if boolean_exporting.upper() == "Y":
-        exportingEndGameGraphs(file_name, "png")
+        exportingEndGameGraphs(file_name_JSON, "png")
 
     elif boolean_exporting.upper() == "NO":
         print("Finished")
