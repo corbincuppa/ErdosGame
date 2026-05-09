@@ -19,10 +19,10 @@ This requires a working shell and `make`.
 	* `cd -` and `make all-64bit` to create a binary for the 64 bit version
 
 
-### Usage of user_friendly_solver
+### Usage of userFriendlySolver
 
 
-Usage: `python3 -c 'from startingConfigFile import user_friendly_solver; user_friendly_solver()' `
+Usage: `python3 userFriendlySolver.py `
 
 This programs makes use of JSON files. If you already have a JSON file in the following format:
 ```
@@ -65,7 +65,24 @@ file_name				the name of the JSON file containing the given format
 ```
 This program runs the solver given the arguments in the JSON file and saves a history of the played game containing the time of when the game was processed, the starting, red and blue graphs, bias and final score. This is saved to `~/ErdosGame/history.txt`
 
+### Usage of Exporting-End-Graphs.sh
+Usage: `bash Exporting-End-Graphs.sh --image_folder image_folder --export image_format`
+
+```
+image_folder			the directory in whcih you wish to export the end graphs of the latest game
+image_format			the formate to which the end graphs shall be exported
+```
+
+### Usage of deletion
+
+### Usage of deletion
+
+### Usage of deletion
+
+### Usage of deletion
+
 ### Usage of restoreBackup
+
 Usage: `python3 restoreBackup`
 
 This program will show all possible backups, which are saved hourly. It then asks which history backup file you would like to restore to. The history.txt is then overwritten by the chosen backup.
@@ -74,12 +91,29 @@ This program will show all possible backups, which are saved hourly. It then ask
 
 Usage: `python3 deletion`
 
-If you wish to delete all generated files by the program, run the deletion script. This will delete the following files:
+If you wish to delete all generated files by the program, run the deletion script. This will delete the following files/directories:
 ```
 StartGraph.png
 RedGraph.png
+BlueGraph.png
+EndGameAliceGraph.png
+EndGameBobGraph.png
+static/images/StartGraph.png
+static/images/RedGraph.png
+static/images/BlueGraph.png
+static/images/EndGameAliceGraph.png
+static/images/EndGameBobGraph.png
+static/images
 fileWithGraphString
 pathToResult.txt
 temp.txt
 startingFile.json
+testStartingFile.json
+```
+For testing purposes, the following are also removed:
+```
+testStartingFileIllegalGraph.json
+testStartingFileIllegalIntType.json
+testStartingFileIllegalIntValue.json
+testStartingFileIllegalMissing.json
 ```
