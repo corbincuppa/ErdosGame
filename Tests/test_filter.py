@@ -31,7 +31,7 @@ def test_makeJSONFile():
         red_graph="C?",
         blue_graph="C?",
         thread_number=1,
-        starting_player= 1,
+        start_player_In= "red",
         bias=0
     )
 
