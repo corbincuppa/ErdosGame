@@ -1,5 +1,5 @@
 from makeGraphsFromHistory import makeGraphs
-from startingConfigFile import makeJSONFile, writeHistory
+from startingConfigFile import makeJSONFile, writeHistory, exportingEndGameGraphs
 import os
 from flask import Flask, render_template, request, redirect
 
@@ -11,7 +11,6 @@ def startup():
     makeGraphs()
     # From stacksoverflow
     app.before_request_funcs[None].remove(startup)
-    startup()
 
 
 @app.route('/index', methods=['POST', 'GET'])
@@ -32,6 +31,7 @@ def running_solver():
     path = os.path.expanduser("~/ErdosGame")
     writeHistory(path, "startingFile.json")
     makeGraphs()
+    exportingEndGameGraphs("startingFile.json", "png")
+    os.system("mv EndGameAliceGraph.png ~/ErdosGame/static/images/")
+    os.system("mv EndGameBobGraph.png ~/ErdosGame/static/images/")
     return redirect('/index')
-
-    

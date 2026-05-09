@@ -18,8 +18,19 @@
 </head>
 <body>
     <h1>Most recent Erdos game</h1>
-    <h3>End graph</h3>
-    <p>Not yet implemented 🙃</p>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">End graphs</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td> <img src = "{{ url_for('static', filename='images/EndGameAliceGraph.png') }}" alt="Alice graph"> </td>
+                <td><img src = "{{ url_for('static', filename='images/EndGameBobGraph.png') }}" alt="Bob graph"></td>
+                
+        </tfoot>
+    </table>
 
     <table>
         <thead>
