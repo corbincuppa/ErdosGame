@@ -46,6 +46,8 @@ Usage: `python3 -c 'from startingConfigFile import makeJSONFile ; makeJSONFile(n
 The arguments have the same definition as the elements in the JSON file format above. 
 See "Usage of user_friendly_solver".
 ```
+This program will make a JSON file in the given format to potentially be parsed to the wanted program. 
+`startingFile.json` will always be overwritten or in some cases deleted so make sure to save a copy and rename the file if you wish to keep your configuration.
 
 ### Usage of visualisationGraphs
 
@@ -66,20 +68,20 @@ file_name				the name of the JSON file containing the given format
 This program runs the solver given the arguments in the JSON file and saves a history of the played game containing the time of when the game was processed, the starting, red and blue graphs, bias and final score. This is saved to `~/ErdosGame/history.txt`
 
 ### Usage of Exporting-End-Graphs.sh
+
 Usage: `bash Exporting-End-Graphs.sh --image_folder image_folder --export image_format`
 
 ```
-image_folder			the directory in whcih you wish to export the end graphs of the latest game
+image_folder			the directory in which you wish to export the end graphs of the latest game
 image_format			the formate to which the end graphs shall be exported
 ```
+This program will export the end graphs of Alice (red) and Bob (blue) to a given format and directory.
 
-### Usage of deletion
+### Usage of website
 
-### Usage of deletion
+Usage: `flask --app website run`
 
-### Usage of deletion
-
-### Usage of deletion
+Surf to the given localhost site: `http://127.0.0.1:5000/index` to view the given graphs and end graphs of the latest game.
 
 ### Usage of restoreBackup
 
