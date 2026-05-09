@@ -5,6 +5,7 @@ import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias):
     # Make the JSON format
     data = { "n" : n, 
@@ -125,7 +126,7 @@ def listConverter(list):
         result.append(new_row)
     return result
 
-def exportingEndGameGraphs(file_name):
+def exportingEndGameGraphs(file_name, extension):
     #the size of the matrix
     with open(file_name, "r") as f:
         data = json.load(f)
@@ -148,12 +149,12 @@ def exportingEndGameGraphs(file_name):
     fig, ax = plt.subplots()
     nx.draw(endGameRed, node_color="red", edge_color="red", ax=ax)
     ax.set_title(f"End game Alice graph")
-    plt.savefig(f"EndGameAliceGraph.png")
+    plt.savefig(f"EndGameAliceGraph.{extension}")
 
     fig, ax = plt.subplots()
     nx.draw(endGameBlue, node_color="blue", edge_color="blue", ax=ax)
     ax.set_title(f"End game Bob graph")
-    plt.savefig(f"EndGameBobGraph.png")
+    plt.savefig(f"EndGameBobGraph.{extension}")
 
     print("\nYour graphs have been saved as .png files: EndGameAliceGraph.png and EndGameBobGraph.png\n")
     
@@ -217,7 +218,7 @@ def user_friendly_solver():
         boolean_exporting = input("Do you want to export the end-game graphs? [Y/n]\n")
 
     if boolean_exporting.upper() == "Y":
-        exportingEndGameGraphs(file_name)
+        exportingEndGameGraphs(file_name, "png")
 
     elif boolean_exporting.upper() == "NO":
         print("Finished")
