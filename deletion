@@ -8,5 +8,10 @@ for i in range(3):
 os.system("rm fileWithGraphString")
 os.system("rm startingFile.json")
 os.system("rm pathToResult.txt")
+os.system("rm EndGameAliceGraph.png")
+os.system("rm EndGameBobGraph.png")
+os.system("rm images/EndGameAliceGraph.png")
+os.system("rm images/EndGameBobGraph.png")
+os.system("rmdir images")
 for i in range (5):
     os.system(f"rm {file[i]}")
