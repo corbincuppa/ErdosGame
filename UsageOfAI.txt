@@ -1,4 +1,6 @@
-In startingConfigFile.py plt.title(f"{title[i]} graph") did not work. The following lines are made with AI:
+The following lines are made with AI:
+
+In startingConfigFile.py:
 10 def is_graph6_format(s):
 11    try:
 12        nx.from_graph6_bytes(s.encode())
@@ -6,7 +8,7 @@ In startingConfigFile.py plt.title(f"{title[i]} graph") did not work. The follow
 14    except nx.NetworkXError:
 15        return False
 
-
+#plt.title(f"{title[i]} graph") did not work
 65	fig, ax = plt.subplots()
 66	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
 67	ax.set_title(f"{title[i]} graph")
