@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <style>
+        table {
+            width: 300px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Most recent Erdos game</h1>
+    <h3>End graph</h3>
+    <p>Not yet implemented 🙃</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Starting graph</th>
+                <th>Red graph</th>
+                <th>Blue graph</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td> <img src = "{{ url_for('static', filename='images/StartingGraph.png') }}" alt="Starting graph"> </td>
+                <td><img src = "{{ url_for('static', filename='images/RedGraph.png') }}" alt="Blue graph"></td>
+                <td><img src = "{{ url_for('static', filename='images/BlueGraph.png') }}" alt="Red graph"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <form action="action_page.php" method="post">
+        <label for="order">Order</label>
+        <input id="order" name="order" type="number" required>
+        <label for="startGraph">Starting graph</label>
+        <input id="startGraph" name="startGraph" type="text" required>
+        <label for="redGraph">Red graph</label>
+        <input id="redGraph" name="redGraph" type="text" required>
+        <label for="blueGraph">Blue graph</label>
+        <input id="blueGraph" name="blueGraph" type="text" required>
+        <label for="threads">Number of threads</label>
+        <input id="threads" name="threads" type="number" required>
+        <label for="startPlayer">Starting player</label>
+        <input id="startPlayer" name="start_player" type="text" required>
+        <label for="bias">Bias</label>
+        <input id="bias" name="bias" type="number" required>
+
+        <input type="submit">
+    </form>
+
+    <p>{{order}} {{startPlayer}}</p>
+</body>
+</html>
