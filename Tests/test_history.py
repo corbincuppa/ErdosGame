@@ -19,6 +19,7 @@ def before_module():
         myJSON = json.dumps(data[i])
         with open(name_file, "w") as f:
             f.write(myJSON)
+    path = os.path.expanduser(f"~/ErdosGame")
     # Run tests
     yield
     # Delete all testing JSON files 
@@ -67,29 +68,34 @@ def test_writeHistory_illegal_input_graph():
     # testStartingFileIllegalGraph.json
     # {"n": 4, "starting-graph": "illegal", "red-graph": "illegal", "blue-graph": "illegal", "threadnumber": 1, "starting-player": 1, "bias": 0}
     with pytest.raises(NetworkXError):
-        writeHistory("testStartingFileIllegalGraph.json")
+        path = os.path.expanduser(f"~/ErdosGame")
+        writeHistory(path, "testStartingFileIllegalGraph.json")
 
 
 def test_writeHistory_illegal_input_intType():
     # testStartingFileIllegalIntType.json
     # {"n": "four", "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": "one", "starting-player": "one", "bias": "zero"}
     with pytest.raises(TypeError):
-        writeHistory("testStartingFileIllegalIntType.json")
+        path = os.path.expanduser(f"~/ErdosGame")
+        writeHistory(path, "testStartingFileIllegalIntType.json")
 
 def test_writeHistory_illegal_input_intValue():
     # testStartingFileIllegalIntValue.json
     # {"n": -4, "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": -1, "starting-player": -1, "bias": -1}
     with pytest.raises(ValueError):
-        writeHistory("testStartingFileIllegalIntValue.json")
+        path = os.path.expanduser(f"~/ErdosGame")
+        writeHistory(path, "testStartingFileIllegalIntValue.json")
 
 
 def test_writeHistory_illegal_input_missing():
     # testStartingFileIllegalMissing.json
     # { "starting-graph": "C~", "red-graph": "C?", "blue-graph": "C?", "threadnumber": 1, "starting-player": 1, "bias": 0}
     with pytest.raises(KeyError):
-        writeHistory("testStartingFileIllegalMissing.json")
+        path = os.path.expanduser(f"~/ErdosGame")
+        writeHistory(path, "testStartingFileIllegalMissing.json")
 
 
 def test_visualisationGraphs_missing_file():
-    with pytest.raises(FileNotFoundError):
-        writeHistory("/doesnot/exist.json")
+    with pytest.raises(FileNotFoundError):#
+        path = os.path.expanduser(f"~/ErdosGame")
+        writeHistory(path, "/doesnot/exist.json")
