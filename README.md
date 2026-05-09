@@ -42,9 +42,18 @@ Then input the name of that JSON file to be parsed into the solver. If not, the 
 
 Usage: `python3 -c 'from startingConfigFile import makeJSONFile ; makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias)' `
 
-```
 The arguments have the same definition as the elements in the JSON file format above. 
 See "Usage of user_friendly_solver".
+
+```
+n 					the order of the graph on which the game is played					
+starting_graph			the starting graph in graph6 format
+red_graph				the start graph of the red player (Alice) in graph6 format
+blue_graph			the start graph of the blue player (Bob) in graph6 format
+thread_number			the number of threads on which the game is to be run
+start_player_In			the player who starts (red or blue)
+bias					blue can select # more edges than red in its turn
+
 ```
 This program will make a JSON file in the given format to potentially be parsed to the wanted program. 
 `startingFile.json` will always be overwritten or in some cases deleted so make sure to save a copy and rename the file if you wish to keep your configuration.
@@ -53,7 +62,7 @@ This program will make a JSON file in the given format to potentially be parsed 
 
 Usage: `python3 -c 'from startingConfigFile import visualisationGraphs; visualisationGraphs(file_name)' `
 ```
-file_name				the name of the JSON file containing the given format
+file_name_JSON		the name of the JSON file containing the given format
 ```
 This program takes the given JSON file and saves the starting, red and blue graphs as `.png` files in the `~/ErdosGame` directory.
 
@@ -63,9 +72,10 @@ This program takes the given JSON file and saves the starting, red and blue grap
 Usage: `python3 -c 'from startingConfigFile import writeHistory; writeHistory(file_name)' `
 
 ```
-file_name				the name of the JSON file containing the given format
+destination_path		the path to which the history shall be saved	
+file_name_JSON		the name of the JSON file containing the given format
 ```
-This program runs the solver given the arguments in the JSON file and saves a history of the played game containing the time of when the game was processed, the starting, red and blue graphs, bias and final score. This is saved to `~/ErdosGame/history.txt`
+This program runs the solver given the arguments in the JSON file and saves a history of the played game containing the time of when the game was processed, the starting, red and blue graphs, bias and final score. This is saved to `~/ErdosGame/history.txt` if run by userFriendlySolver.py.
 
 ### Usage of Exporting-End-Graphs.sh
 
