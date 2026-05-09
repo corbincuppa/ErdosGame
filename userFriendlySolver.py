@@ -1,0 +1,2 @@
+from startingConfigFile import user_friendly_solver
+user_friendly_solver()
