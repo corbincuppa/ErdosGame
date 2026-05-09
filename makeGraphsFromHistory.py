@@ -8,7 +8,7 @@ def makeGraphs():
     # Open the history.txt file and get the results of the last game
     with open("history.txt") as h:
         last_game = h.readlines()[-1]
-        # split the results
+        # Split the results
         last_game = last_game.split("\t")
 
     # Get each graph

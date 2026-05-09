@@ -19,7 +19,6 @@ def before_module():
         myJSON = json.dumps(data[i])
         with open(name_file, "w") as f:
             f.write(myJSON)
-    path = os.path.expanduser(f"~/ErdosGame")
     # Run tests
     yield
     # Delete all testing JSON files 

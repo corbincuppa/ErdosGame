@@ -1,21 +1,49 @@
 In startingConfigFile.py plt.title(f"{title[i]} graph") did not work. The following lines are made with AI:
-45	fig, ax = plt.subplots()
-46	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
-47	ax.set_title(f"{title[i]} graph")
+10 def is_graph6_format(s):
+11    try:
+12        nx.from_graph6_bytes(s.encode())
+13        return True
+14    except nx.NetworkXError:
+15        return False
+
+
+65	fig, ax = plt.subplots()
+66	nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax) # only ax = ax
+67	ax.set_title(f"{title[i]} graph")
 
 In test_filter.py:
-38  with patch("os.system") as mock_system:
-42  assert mock.call_count == 3
+57  with patch("os.system") as mock_system:
+61  assert mock.call_count == 3
 
 In historyBackUps.py:
- 9  directory_backups = os.path.expanduser("~/.played-games")
- 11  os.makedirs(directory_backups, exist_ok=True)
+9  directory_backups = os.path.expanduser("~/.played-games")
+11  os.makedirs(directory_backups, exist_ok=True)
 
 30  while True:
 31    schedule.run_pending()
 32    time.sleep(1)
+
 In test_history.py
 13  assert mock_system.call_count == 1
 14  aangeroepen_commando = mock_system.call_args[0]
 16  verwacht_commando_deel1 = "bash Erdos-Game-Generic.sh 4 C~ C? C? 1 1 0 >> pathToResult.txt"
 19  assert verwacht_commando_deel1 in aangeroepen_commando
+
+In Exporting-End-Graphs.sh
+1  while [[ "$#" -gt 0 ]]; do
+2    case $1 in
+3        --image_folder)
+4            IMAGE_FOLDER="$2"
+5            if [ -e "$2" ]
+6            then
+8            else
+10           fi	
+11           shift 2
+12           ;;
+
+21        *)
+22            echo "Unknown argument: $1"
+23            exit 1
+24            ;;
+25  	esac
+26  done
