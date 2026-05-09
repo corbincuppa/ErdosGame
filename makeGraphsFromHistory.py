@@ -35,4 +35,5 @@ def makeGraphs():
         nx.draw(graph[i], node_color=color[i], edge_color=color[i], ax=ax)
         ax.set_title(f"{title[i]} graph")
         # Save each graph as a file 
-        plt.savefig(f"static/images/{title[i]}Graph.png")    
+        plt.savefig(f"static/images/{title[i]}Graph.png") 
+        plt.close()   

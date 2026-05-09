@@ -28,8 +28,9 @@ def running_solver():
     startPlayer  =    request.form['start_player'];
     bias         =    request.form['bias'];
     os.system("python3 deletion")
-    makeJSONFile(order, startGraph, redGraph, blueGraph, threads, startPlayer, bias)
-    writeHistory("startingFile.json")
+    makeJSONFile(int(order), startGraph, redGraph, blueGraph, int(threads), startPlayer,int(bias))
+    path = os.path.expanduser("~/ErdosGame")
+    writeHistory(path, "startingFile.json")
     makeGraphs()
     return redirect('/index')
 

@@ -18,7 +18,13 @@ def is_graph6_format(s):
 
 
 
-def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, starting_player, bias):
+def makeJSONFile(n, starting_graph, red_graph, blue_graph, thread_number, start_player_In, bias):
+    # Change the variable value based on the colour chosen
+    starting_player = 0
+    if start_player_In.upper() == "BLUE":
+        starting_player = 2
+    elif start_player_In.upper() == "RED":
+        starting_player = 1
     # Make the JSON format
     data = { "n" : n, 
             "starting-graph" : starting_graph,
@@ -73,14 +79,14 @@ def writeHistory(destination_path, file_name_JSON):
     # Open the given file and parse the arguments to the software
     with open(file_name_JSON, "r") as f:
         data = json.load(f)
-        n = data["n"]
         # Put the values in the JSON file into arguments
+        n = int(data["n"])
         starting_graph = data["starting-graph"]
         red_graph = data["red-graph"]
         blue_graph = data["blue-graph"]
-        threads = data["threadnumber"]
-        starting_player = data["starting-player"]
-        bias = data["bias"]
+        threads = int(data["threadnumber"])
+        starting_player = int(data["starting-player"])
+        bias = int(data["bias"])
 
     if not isinstance(n, (int)) or not isinstance(threads, (int)) or not isinstance(starting_player, (int)) or not isinstance(bias, (int)):
         raise TypeError()
@@ -88,20 +94,6 @@ def writeHistory(destination_path, file_name_JSON):
         raise ValueError()
     if not is_graph6_format(starting_graph) or not is_graph6_format(red_graph) or not is_graph6_format(blue_graph):
         raise nx.NetworkXError
-    
-    # Call the solver function, save the terminal output path to a new file "pathToResult.txt"
-    os.system(f"bash Erdos-Game-Generic.sh {n} {starting_graph} {red_graph} {blue_graph} {threads} {starting_player} {bias} >> pathToResult.txt")
-
-    # make the current time of when the game was processed for history file making
-    cur = time.ctime(time.time())
-
-    # Return the results from the results.txt file
-    with open("pathToResult.txt", "r") as h:
-        path = h.readlines()
-        path = path[0].replace("\n", "/results.txt")
-        with open(str(path), "r") as i:
-            result = i.readlines()
-            print(result)
 
     # create the history file
     with open("history.txt", "a") as j:
@@ -115,32 +107,20 @@ def writeHistory(destination_path, file_name_JSON):
         # Return the results from the results.txt file
         with open("pathToResult.txt", "r") as h:
             path_res = h.readlines()
-            path_res = path_res[0].replace("\n", "/results.txt")
+            path_res = path_res[-2].replace("\n", "/results.txt")
             with open(str(path_res), "r") as i:
                 result = i.readlines()
                 print(result)
 
     # create the history file
 
-
-
-
-
-
-
     # ----------------CREATE HISTORY FILE IN ./PLAYED-GAMES DIR -----------------------------------------------------------------
     # AI !!!!!!!!!!!!!!!!!!!!!!
     os.makedirs(os.path.dirname(destination_path), exist_ok=True)
     file_name_history = f"history.txt"
-    destination_path = os.path.join(destination_path, file_name_history)
-    with open(destination_path, "a") as j:
+    history_path = os.path.join(destination_path, file_name_history)
+    with open(history_path, "a") as j:
 
-
-
-
-
-
-        
         # history file
         # date and time of when the game was processed
         # <timestamp>\t<base graph>\t<red graph>\t<blue graph>\t
@@ -235,14 +215,7 @@ def user_friendly_solver():
         # game bias, ask how many extra edges blue colours.
         bias = int(input("For each edge that red colours, how many extra edges can blue colour? [0 if they colour equally]\n"))
 
-        # Change the variable value based on the colour chosen
-        start_player = 0
-        if start_player_In.upper() == "BLUE":
-            start_player = 2
-        elif start_player_In.upper() == "RED":
-            start_player = 1
-
-        makeJSONFile(n_In, starting_graph, red_graph_In, blue_graph_In, thread_number_In, start_player, bias)
+        makeJSONFile(n_In, starting_graph, red_graph_In, blue_graph_In, thread_number_In, start_player_In, bias)
 
         # If the user doesn't already have one, make the file_name_JSON variable the created JSON file
         file_name_JSON = "startingFile.json"
