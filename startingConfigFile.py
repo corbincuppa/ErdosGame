@@ -191,7 +191,7 @@ def exportingEndGameGraphs(file_name, extension):
     ax.set_title(f"End game Bob graph")
     plt.savefig(f"EndGameBobGraph.{extension}")
 
-    print("\nYour graphs have been saved as .png files: EndGameAliceGraph.png and EndGameBobGraph.png\n")
+    print(f"\nYour graphs have been saved as .{extension} files: EndGameAliceGraph.{extension} and EndGameBobGraph.{extension}\n")
     
 
 
