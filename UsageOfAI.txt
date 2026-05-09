@@ -7,6 +7,13 @@ In test_filter.py:
 38  with patch("os.system") as mock_system:
 42  assert mock.call_count == 3
 
+In historyBackUps.py:
+ 9  directory_backups = os.path.expanduser("~/.played-games")
+ 11  os.makedirs(directory_backups, exist_ok=True)
+
+30  while True:
+31    schedule.run_pending()
+32    time.sleep(1)
 In test_history.py
 13  assert mock_system.call_count == 1
 14  aangeroepen_commando = mock_system.call_args[0]
